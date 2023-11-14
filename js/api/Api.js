@@ -16,7 +16,7 @@ class Api {
 }
 
 
-class MovieApi extends Api {
+export class MovieApi extends Api {
   /**
    * 
    * @param {string} url 

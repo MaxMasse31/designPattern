@@ -1,4 +1,4 @@
-class Movie {
+export class OldMovie {
     constructor(data) {
         this._duration = data.duration
         this._picture = data.picture
@@ -8,9 +8,7 @@ class Movie {
     }
 
     get duration() {
-        const hours = Math.floor(this._duration / 60)
-        const minutes = this._duration % 60
-        return `${hours}h${minutes}`
+        return this._duration
     }
 
     get picture() {
@@ -30,6 +28,6 @@ class Movie {
     }
 
     get title() {
-        return this._title.hasOwnProperty('fr') ? this._title['fr'] : this._title['en']
+        return this._title
     }
 }
