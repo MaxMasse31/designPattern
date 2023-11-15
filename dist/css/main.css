@@ -22,7 +22,7 @@ body {
 
 /* Header */
 .main-header {
-    display: flex;
+    display: flex; 
     align-items: baseline;
     width: 90%;
     margin-left: auto;

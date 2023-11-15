@@ -4,6 +4,7 @@
 import { MovieApi } from "./api/Api.js";
 import { MovieCard } from "./templates/MovieCard.js";
 import { MoviesFactory } from "./factories/MoviesFactory.js";
+import {Form} from "./templates/Modal.js";
 
 // Classe principale de l'application
 class App {
@@ -45,3 +46,6 @@ class App {
     });
   }
 }
+
+const app = new App()
+app.main()
