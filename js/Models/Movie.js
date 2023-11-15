@@ -1,4 +1,4 @@
-class Movie {
+export class Movie {
     constructor(data) {
         this._duration = data.duration
         this._picture = data.picture
