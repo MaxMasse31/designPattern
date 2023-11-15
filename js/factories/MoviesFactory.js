@@ -1,14 +1,20 @@
 import { OldMovie } from "../Models/OldMovie.js";
 import { Movie } from "../Models/Movie.js";
+import {ExternalMovie} from "../Models/ExternalMovie.js"
 
 export class MoviesFactory {
-  constructor(data, type) {
-    if (type === "oldApi") {
-      return new OldMovie(data);
-    } else if (type === "newApi") {
-      return new Movie(data);
-    } else {
-      throw "Unknown format type";
+    constructor(data, type) {
+        // Si le type correspond à l'ancienne API, alors retourne moi l'ancien formattage
+        if (type === 'oldApi') {
+            return new OldMovie(data)
+        // Sinon retourne moi le nouveau formattage
+        } else if (type === 'newApi') {
+            return new Movie(data)
+        // Une bonne pratique est de throw une erreur si le format n'est pas reconnu
+        } else if (type === 'externalApi') {
+            return new ExternalMovie(data)
+        } else {
+            throw 'Unknown type format'
+        }
     }
-  }
 }
