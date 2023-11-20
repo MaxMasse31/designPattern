@@ -101,3 +101,38 @@ body {
     color: #eee;
     border-color: #eee;
 }
+
+.form-group {
+    margin-bottom: 18px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-label {
+    margin-bottom: 8px;
+}
+
+.submit-btn {
+    margin-top: 12px;
+    height: 40px;
+    background-color: #eee;
+    border: 1px solid #333;
+    border-radius: 8px;
+    color: #333;
+    transition: .4s;
+    cursor: pointer;
+}
+
+.submit-btn:hover {
+    background-color: #333;
+    color: #eee;
+    border-color: #eee;
+}
+
+/* Filter Form */
+.filter-form-wrapper {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 36px;
+}
