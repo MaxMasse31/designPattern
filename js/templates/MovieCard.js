@@ -13,6 +13,8 @@ export class MovieCard {
                     alt="${this._movie.title}"
                     src="${this._movie.thumbnail}"
                 />
+
+                <button class="btn"> Voir le preview </button> 
             </div>
             <h3 class="fs-16 center">${this._movie.title}</h3>
             <p class="fs-14 center">

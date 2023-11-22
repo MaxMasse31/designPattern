@@ -1,138 +1,154 @@
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: 'Open Sans', sans-serif;
-    color: #333;
+  font-family: "Open Sans", sans-serif;
+  color: #333;
 }
 
 /* Utility class */
 .fs-16 {
-    font-size: 16px;
+  font-size: 16px;
 }
 
 .fs-14 {
-    font-size: 14px;
+  font-size: 14px;
+  margin-bottom: 50px;
 }
 
 .center {
-    text-align: center;
+  text-align: center;
 }
 
 /* Header */
 .main-header {
-    display: flex; 
-    align-items: baseline;
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 40px;
-    justify-content: space-between;
-    border-bottom: 1px solid #333;
+  display: flex;
+  align-items: baseline;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 40px;
+  justify-content: space-between;
+  border-bottom: 1px solid #333;
 }
 
 /* Movies Wrapper */
 .movies-wrapper {
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
-    display: grid;
-    grid-template-columns: repeat(8, 1fr);
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
 }
 
-
 /* Movie Card */
+
+.movie-thumbnail {
+  position: relative;
+}
 .movie-thumbnail img {
-    border-radius: 8px;
-    height: 177px;
-    width: 120px;
-    object-fit: cover;
-    box-shadow: 4px 5px 5px #333;
+  border-radius: 8px;
+  height: 177px;
+  width: 120px;
+  object-fit: cover;
+}
+
+.btn {
+  position: absolute;
+  bottom: 0;
+  width: 120px;
+  margin: 0px;
+  padding: 5px;
+  clear: both;
+  right: 50%;
+  transform: translateX(50%);
+  font-size:small;
+  
 }
 
 /* Modal */
 .modal-on {
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100vh;
-    width: 100vw;
-    background-color: rgba(255, 255, 255, .7);
-    overflow: hidden;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(255, 255, 255, 0.7);
+  overflow: hidden;
 }
 
 .modal form {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #333;
-    color: #eee;
-    display: flex;
-    flex-direction: column;
-    padding: 24px;
-    border-radius: 8px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #333;
+  color: #eee;
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  border-radius: 8px;
 }
 
 .form-group {
-    margin-bottom: 18px;
-    display: flex;
-    flex-direction: column;
+  margin-bottom: 18px;
+  display: flex;
+  flex-direction: column;
 }
 
 .form-label {
-    margin-bottom: 8px;
+  margin-bottom: 8px;
 }
 
 .submit-btn {
-    margin-top: 12px;
-    height: 40px;
-    background-color: #eee;
-    border: 1px solid #333;
-    border-radius: 8px;
-    color: #333;
-    transition: .4s;
-    cursor: pointer;
+  margin-top: 12px;
+  height: 40px;
+  background-color: #eee;
+  border: 1px solid #333;
+  border-radius: 8px;
+  color: #333;
+  transition: 0.4s;
+  cursor: pointer;
 }
 
 .submit-btn:hover {
-    background-color: #333;
-    color: #eee;
-    border-color: #eee;
+  background-color: #333;
+  color: #eee;
+  border-color: #eee;
 }
 
 .form-group {
-    margin-bottom: 18px;
-    display: flex;
-    flex-direction: column;
+  margin-bottom: 18px;
+  display: flex;
+  flex-direction: column;
 }
 
 .form-label {
-    margin-bottom: 8px;
+  margin-bottom: 8px;
 }
 
 .submit-btn {
-    margin-top: 12px;
-    height: 40px;
-    background-color: #eee;
-    border: 1px solid #333;
-    border-radius: 8px;
-    color: #333;
-    transition: .4s;
-    cursor: pointer;
+  margin-top: 12px;
+  height: 40px;
+  background-color: #eee;
+  border: 1px solid #333;
+  border-radius: 8px;
+  color: #333;
+  transition: 0.4s;
+  cursor: pointer;
 }
 
 .submit-btn:hover {
-    background-color: #333;
-    color: #eee;
-    border-color: #eee;
+  background-color: #333;
+  color: #eee;
+  border-color: #eee;
 }
 
 /* Filter Form */
 .filter-form-wrapper {
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 36px;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 36px;
 }
