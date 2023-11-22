@@ -1,5 +1,12 @@
-import {FilterForm} from "./templates/FilterForm.js"
+import {FilterV2} from "../lib/filter-v2/index.js";
 
+export class FilterMoviesAdapter {
+    constructor(Movies, actor) {
+        this.Movies = Movies
+        this.actor = actor
+    }
 
-class FilterMoviesAdapter {
+    async filterByActor() {
+        return await FilterV2.filterByActor(this.actor, this.Movies)
+    }
 }

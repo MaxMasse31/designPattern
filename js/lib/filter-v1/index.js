@@ -10,7 +10,7 @@ export class FilterV1 {
   }
 
   async filterByActor() {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    await new Promise((resolve) => setTimeout(resolve, 250));
 
     console.log("FilterByActor called with actor:", this._actor);
 
