@@ -1,0 +1,44 @@
+export class PlayerModal {
+    constructor(movie) {
+        this.movie = movie;
+
+        this.$wrapper = document.createElement('div');
+        this.$wrapper.classList.add('player-wrapper');
+
+        this.$modalWrapper = document.querySelector('.modal');
+
+      
+    }
+
+    onCloseButton() {
+        const closeButton = this.$wrapper.querySelector('.close-btn');
+        closeButton.addEventListener('click', () => {
+            this.$modalWrapper.classList.remove('modal-on');
+            this.$wrapper.innerHTML = "";
+        });
+    }
+
+    createPlayer() {
+        const player = `
+            <div class="player">
+                <iframe 
+                    height="600" 
+                    width="800" 
+                    src=${this.movie.trailer}
+                ></iframe>
+                <button class="close-btn">Fermer la fenêtre</button>
+            </div>
+        `;
+
+        this.$wrapper.innerHTML = player;
+
+        this.$modalWrapper.classList.add('modal-on');
+        this.$modalWrapper.appendChild(this.$wrapper);
+
+        this.onCloseButton();
+    }
+
+    render() {
+        this.createPlayer();
+    }
+}

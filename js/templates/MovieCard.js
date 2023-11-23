@@ -1,30 +1,54 @@
+
+
+
 export class MovieCard {
   constructor(movie) {
-    this._movie = movie;
+      this._movie = movie
+
+      this.$wrapper = document.createElement('div')
+      this.$wrapper.classList.add('movie-card-wrapper')
+  }
+
+  get movie() {
+      return this._movie
   }
 
   createMovieCard() {
-    const $wrapper = document.createElement("div");
-    $wrapper.classList.add("movie-card-wrapper");
+      const movieCard = `
+          <div class="movie-thumbnail center">
+              <img
+                  alt="${this._movie.title}"
+                  src="${this._movie.thumbnail}"
+              />
+              <button id="btn" class="btn"> Voir le preview </button>
+          </div>
+          <h3 class="fs-16 center">${this._movie.title}</h3>
+          <p class="fs-14 center">
+              <span>${this._movie.released_in}</span>
+              -
+              <span>${this._movie.duration}</span>
+          </p>
+      `
 
-    const movieCard = `
-            <div class="movie-thumbnail center">
-                <img
-                    alt="${this._movie.title}"
-                    src="${this._movie.thumbnail}"
-                />
 
-                <button class="btn"> Voir le preview </button> 
-            </div>
-            <h3 class="fs-16 center">${this._movie.title}</h3>
-            <p class="fs-14 center">
-                <span>${this._movie.released_in}</span>
-                -
-                <span>${this._movie.duration}</span>
-            </p>
-        `;
+      
+      this.$wrapper.innerHTML = movieCard
 
-    $wrapper.innerHTML = movieCard;
-    return $wrapper;
+     
+
+      return this.$wrapper; 
+    
+
+
+  
+   
   }
+
+    
+    
+
+  
+
+
 }
+

@@ -1,5 +1,6 @@
 import { MovieCard } from "../templates/MovieCard.js";
 import { FilterMoviesAdapter } from "../adapters/FilterMoviesAdapter.js";
+import { movieCardWithPlayer } from "../Decorator/Decorator.js";
 
 export class FilterForm {
   constructor(Movies) {
@@ -13,16 +14,13 @@ export class FilterForm {
   async filterMovies(actor) {
     this.clearMoviesWrapper();
 
-    /* Vous devrez ajouter votre Adapter ici */
-    // const FilterLib = new FilterV1(this.Movies, actor)
-    // const FilteredMovies = await FilterLib.filterByActor()
-
     const AdaptedFilterLib = new FilterMoviesAdapter(this.Movies, actor);
     const FilteredMovies = await AdaptedFilterLib.filterByActor();
 
-    FilteredMovies.forEach((Movie) => {
-      const Template = new MovieCard(Movie);
+    FilteredMovies.forEach((movie) => {
+      const Template = new MovieCard(movie);
       this.$moviesWrapper.appendChild(Template.createMovieCard());
+      movieCardWithPlayer(Template, movie);
     });
   }
 
