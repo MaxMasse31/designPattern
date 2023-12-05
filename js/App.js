@@ -7,6 +7,7 @@ import { MoviesFactory } from "./factories/MoviesFactory.js";
 import { Form } from "./templates/Modal.js";
 import { FilterForm } from "./templates/FilterForm.js";
 import { movieCardWithPlayer } from "./Decorator/Decorator.js";
+import { SorterForm } from "./templates/SorterForm.js";
 
 class App {
   constructor() {
@@ -32,9 +33,11 @@ class App {
 
     const DataForm = new Form();
     DataForm.render();
-
     const Filter = new FilterForm(FullMovies);
     Filter.render();
+
+    const Sorter = new SorterForm(FullMovies);
+    Sorter.render();
 
     FullMovies.forEach((movie) => {
       const Template = new MovieCard(movie);

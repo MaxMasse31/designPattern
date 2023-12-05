@@ -53,7 +53,6 @@ body {
   width: 120px;
   object-fit: cover;
   box-shadow: 4px 5px 5px #333;
-
 }
 
 .btn {
@@ -65,8 +64,7 @@ body {
   clear: both;
   right: 50%;
   transform: translateX(50%);
-  font-size:small;
-  
+  font-size: small;
 }
 
 /* Modal */
@@ -178,11 +176,32 @@ body {
   border-radius: 8px;
   height: 36px;
   width: 200px;
-  transition: .4s;
+  transition: 0.4s;
   cursor: pointer;
 }
 
 .close-btn:hover {
   background-color: #eee;
   color: #333;
+}
+
+.forms-wrapper {
+  display: flex;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: space-between;
+  padding-bottom: 50px;
+}
+
+.sorter-form {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 8px;
+}
+
+.sorter-form > label {
+  width:max-content;
+  margin-right: 5px;
 }
