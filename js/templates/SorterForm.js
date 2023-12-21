@@ -20,8 +20,7 @@ export class SorterForm {
 
   async sorterMovies(sorter) {
     this.clearMoviesWrapper();
-
-    // Utiliser this.filterForm.getSelectedActor() au lieu de filterForm.getSelectedActor()
+    
     const actorFilter = this.filterForm.getSelectedActor();
 
     const filteredMovies = actorFilter
