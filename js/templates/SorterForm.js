@@ -1,9 +1,11 @@
 // SorterForm.js
 
-import { RatingSorterApi } from "../lib/sorter/index.js";
 import { ProxyRatingSorter } from "../proxy/Proxy.js";
 import { MovieCard } from "../templates/MovieCard.js";
 import { FilterV2 } from "../lib/filter-v2/index.js";
+
+//add decorator 
+import { movieCardWithPlayer } from "../Decorator/Decorator.js"; 
 
 export class SorterForm {
   constructor(Movies, filterForm) {
@@ -37,12 +39,15 @@ export class SorterForm {
       SortedMovies.forEach((movie) => {
         const Template = new MovieCard(movie);
         this.$moviesWrapper.appendChild(Template.createMovieCard());
+        movieCardWithPlayer(Template, movie);
       });
     } else {
-      filteredMovies.forEach((movie) => {
-        const Template = new MovieCard(movie);
-        this.$moviesWrapper.appendChild(Template.createMovieCard());
-      });
+        filteredMovies.forEach((movie) => {
+            const Template = new MovieCard(movie);
+            // Apply the decorator
+            movieCardWithPlayer(Template, movie);
+            this.$moviesWrapper.appendChild(Template.createMovieCard());
+          });
     }
 
     this.emitSortEvent(sorter);
