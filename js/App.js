@@ -22,21 +22,18 @@ class App {
     const moviesData = await this.moviesApi.get();
     const externalMoviesData = await this.externalMoviesApi.get();
 
-    const Movies = moviesData.map(
-      (movie) => new MoviesFactory(movie, "newApi")
-    );
-    const ExternalMovies = externalMoviesData.map(
-      (movie) => new MoviesFactory(movie, "externalApi")
-    );
+    const Movies = moviesData.map((movie) => new MoviesFactory(movie, "newApi"));
+    const ExternalMovies = externalMoviesData.map((movie) => new MoviesFactory(movie, "externalApi"));
 
     const FullMovies = Movies.concat(ExternalMovies);
 
     const DataForm = new Form();
     DataForm.render();
-    const Filter = new FilterForm(FullMovies);
-    Filter.render();
 
-    const Sorter = new SorterForm(FullMovies);
+    const Filter = new FilterForm(FullMovies);
+    const Sorter = new SorterForm(FullMovies, Filter);
+
+    Filter.render();
     Sorter.render();
 
     FullMovies.forEach((movie) => {
