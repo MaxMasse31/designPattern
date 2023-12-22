@@ -1,4 +1,4 @@
-class WishlistSubject {
+export class WishlistSubject {
     constructor() {
         this._observers = []
     }

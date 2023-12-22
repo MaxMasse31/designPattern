@@ -8,6 +8,8 @@ import { Form } from "./templates/Modal.js";
 import { FilterForm } from "./templates/FilterForm.js";
 import { movieCardWithPlayer } from "./Decorator/Decorator.js";
 import { SorterForm } from "./templates/SorterForm.js";
+import {WhishListCounter} from "./Observer/Counter.js";
+import {WishlistSubject} from "./Observer/Subject.js";
 
 class App {
   constructor() {
@@ -16,14 +18,23 @@ class App {
 
     this.moviesApi = new MovieApi("/data/new-movie-data.json");
     this.externalMoviesApi = new MovieApi("/data/external-movie-data.json");
+
+    // WishLib Pub/sub
+    this.WishlistSubject = new WishlistSubject();
+    this.WhishListCounter = new WhishListCounter();
+    this.WishlistSubject.subscribe(this.WhishListCounter);
   }
 
   async main() {
     const moviesData = await this.moviesApi.get();
     const externalMoviesData = await this.externalMoviesApi.get();
 
-    const Movies = moviesData.map((movie) => new MoviesFactory(movie, "newApi"));
-    const ExternalMovies = externalMoviesData.map((movie) => new MoviesFactory(movie, "externalApi"));
+    const Movies = moviesData.map(
+      (movie) => new MoviesFactory(movie, "newApi")
+    );
+    const ExternalMovies = externalMoviesData.map(
+      (movie) => new MoviesFactory(movie, "externalApi")
+    );
 
     const FullMovies = Movies.concat(ExternalMovies);
 
@@ -37,7 +48,7 @@ class App {
     Sorter.render();
 
     FullMovies.forEach((movie) => {
-      const Template = new MovieCard(movie);
+      const Template = new MovieCard(movie, this.WishlistSubject);
       this.$moviesWrapper.appendChild(Template.createMovieCard());
       // Appliquez le Decorator pattern au template de la carte de film
       movieCardWithPlayer(Template, movie);

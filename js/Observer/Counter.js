@@ -1,4 +1,4 @@
-class WhishListCounter {
+export class WhishListCounter {
     constructor() {
         this._count = 0
         this._$wishCount = document.querySelector('.wish-count')
