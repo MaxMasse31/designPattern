@@ -4,8 +4,8 @@ import { ProxyRatingSorter } from "../proxy/Proxy.js";
 import { MovieCard } from "../templates/MovieCard.js";
 import { FilterV2 } from "../lib/filter-v2/index.js";
 
-//add decorator 
-import { movieCardWithPlayer } from "../Decorator/Decorator.js"; 
+//add decorator
+import { movieCardWithPlayer } from "../Decorator/Decorator.js";
 
 export class SorterForm {
   constructor(Movies, filterForm) {
@@ -20,7 +20,7 @@ export class SorterForm {
 
   async sorterMovies(sorter) {
     this.clearMoviesWrapper();
-    
+
     const actorFilter = this.filterForm.getSelectedActor();
 
     const filteredMovies = actorFilter
@@ -41,12 +41,12 @@ export class SorterForm {
         movieCardWithPlayer(Template, movie);
       });
     } else {
-        filteredMovies.forEach((movie) => {
-            const Template = new MovieCard(movie);
-            // Apply the decorator
-            movieCardWithPlayer(Template, movie);
-            this.$moviesWrapper.appendChild(Template.createMovieCard());
-          });
+      filteredMovies.forEach((movie) => {
+        const Template = new MovieCard(movie);
+        // Apply the decorator
+        movieCardWithPlayer(Template, movie);
+        this.$moviesWrapper.appendChild(Template.createMovieCard());
+      });
     }
 
     this.emitSortEvent(sorter);

@@ -56,6 +56,7 @@ export class MovieCard {
       `;
 
     this.$wrapper.innerHTML = movieCard;
+    this.handleWishButton();
 
     return this.$wrapper;
   }
