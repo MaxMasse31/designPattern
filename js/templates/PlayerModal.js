@@ -1,25 +1,23 @@
 export class PlayerModal {
-    constructor(movie) {
-        this.movie = movie;
+  constructor(movie) {
+    this.movie = movie;
 
-        this.$wrapper = document.createElement('div');
-        this.$wrapper.classList.add('player-wrapper');
+    this.$wrapper = document.createElement("div");
+    this.$wrapper.classList.add("player-wrapper");
 
-        this.$modalWrapper = document.querySelector('.modal');
+    this.$modalWrapper = document.querySelector(".modal");
+  }
 
-      
-    }
+  onCloseButton() {
+    const closeButton = this.$wrapper.querySelector(".close-btn");
+    closeButton.addEventListener("click", () => {
+      this.$modalWrapper.classList.remove("modal-on");
+      this.$wrapper.innerHTML = "";
+    });
+  }
 
-    onCloseButton() {
-        const closeButton = this.$wrapper.querySelector('.close-btn');
-        closeButton.addEventListener('click', () => {
-            this.$modalWrapper.classList.remove('modal-on');
-            this.$wrapper.innerHTML = "";
-        });
-    }
-
-    createPlayer() {
-        const player = `
+  createPlayer() {
+    const player = `
             <div class="player">
                 <iframe 
                     height="600" 
@@ -30,15 +28,15 @@ export class PlayerModal {
             </div>
         `;
 
-        this.$wrapper.innerHTML = player;
+    this.$wrapper.innerHTML = player;
 
-        this.$modalWrapper.classList.add('modal-on');
-        this.$modalWrapper.appendChild(this.$wrapper);
+    this.$modalWrapper.classList.add("modal-on");
+    this.$modalWrapper.appendChild(this.$wrapper);
 
-        this.onCloseButton();
-    }
+    this.onCloseButton();
+  }
 
-    render() {
-        this.createPlayer();
-    }
+  render() {
+    this.createPlayer();
+  }
 }

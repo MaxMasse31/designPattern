@@ -1,6 +1,5 @@
 // App.js
 
-// Importation des modules et composants nécessaires
 import { MovieApi } from "./api/Api.js";
 import { MovieCard } from "./templates/MovieCard.js";
 import { MoviesFactory } from "./factories/MoviesFactory.js";
@@ -8,8 +7,8 @@ import { Form } from "./templates/Modal.js";
 import { FilterForm } from "./templates/FilterForm.js";
 import { movieCardWithPlayer } from "./Decorator/Decorator.js";
 import { SorterForm } from "./templates/SorterForm.js";
-import {WhishListCounter} from "./Observer/Counter.js";
-import {WishlistSubject} from "./Observer/Subject.js";
+import { WhishListCounter } from "./Observer/Counter.js";
+import { WishlistSubject } from "./Observer/Subject.js";
 
 class App {
   constructor() {
@@ -42,7 +41,7 @@ class App {
     DataForm.render();
 
     const Filter = new FilterForm(FullMovies);
-    const Sorter = new SorterForm(FullMovies, Filter);
+    const Sorter = new SorterForm(FullMovies, Filter, this.WishlistSubject);
 
     Filter.render();
     Sorter.render();
@@ -50,7 +49,7 @@ class App {
     FullMovies.forEach((movie) => {
       const Template = new MovieCard(movie, this.WishlistSubject);
       this.$moviesWrapper.appendChild(Template.createMovieCard());
-      // Appliquez le Decorator pattern au template de la carte de film
+      // Apply the Decorator pattern to the movie card template
       movieCardWithPlayer(Template, movie);
     });
   }

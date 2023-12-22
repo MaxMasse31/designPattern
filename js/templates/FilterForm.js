@@ -19,7 +19,7 @@ export class FilterForm {
     const FilteredMovies = await AdaptedFilterLib.filterByActor();
 
     FilteredMovies.forEach((movie) => {
-      const Template = new MovieCard(movie);
+      const Template = new MovieCard(movie, this.WishListSubject);
       this.$moviesWrapper.appendChild(Template.createMovieCard());
       movieCardWithPlayer(Template, movie);
     });

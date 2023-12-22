@@ -1,5 +1,3 @@
-
-
 export class MovieCard {
   constructor(movie, WishListSubject) {
     this._movie = movie;

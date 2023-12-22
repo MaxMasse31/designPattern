@@ -3,53 +3,58 @@
 import { ProxyRatingSorter } from "../proxy/Proxy.js";
 import { MovieCard } from "../templates/MovieCard.js";
 import { FilterV2 } from "../lib/filter-v2/index.js";
-
-//add decorator
 import { movieCardWithPlayer } from "../Decorator/Decorator.js";
 
 export class SorterForm {
-  constructor(Movies, filterForm) {
+  constructor(Movies, filterForm, WishListSubject) {
     this.Movies = Movies;
-    this.filterForm = filterForm; // Assurez-vous que le nom est correctement défini ici
+    this.filterForm = filterForm;
 
     this.ProxyRatingSorter = new ProxyRatingSorter();
     this.$wrapper = document.createElement("div");
     this.$sorterFormWrapper = document.querySelector(".sorter-form-wrapper");
     this.$moviesWrapper = document.querySelector(".movies-wrapper");
+
+    this.WishListSubject = WishListSubject; // Pass the WishListSubject directly to SorterForm
+    this.onChangeSorter = this.onChangeSorter.bind(this);
   }
 
   async sorterMovies(sorter) {
-    this.clearMoviesWrapper();
+    try {
+      this.clearMoviesWrapper();
 
-    const actorFilter = this.filterForm.getSelectedActor();
+      const actorFilter = this.filterForm.getSelectedActor();
 
-    const filteredMovies = actorFilter
-      ? await FilterV2.filterByActor(actorFilter, this.Movies)
-      : this.Movies;
+      const filteredMovies = actorFilter
+        ? await FilterV2.filterByActor(actorFilter, this.Movies)
+        : this.Movies;
 
-    if (!!sorter) {
-      const sortedData = await this.ProxyRatingSorter.sorter(
-        filteredMovies,
-        sorter,
-        actorFilter
-      );
-      const SortedMovies = sortedData.data;
+      if (!!sorter) {
+        const sortedData = await this.ProxyRatingSorter.sorter(
+          filteredMovies,
+          sorter,
+          actorFilter
+        );
+        const SortedMovies = sortedData.data;
 
-      SortedMovies.forEach((movie) => {
-        const Template = new MovieCard(movie);
-        this.$moviesWrapper.appendChild(Template.createMovieCard());
-        movieCardWithPlayer(Template, movie);
-      });
-    } else {
-      filteredMovies.forEach((movie) => {
-        const Template = new MovieCard(movie);
-        // Apply the decorator
-        movieCardWithPlayer(Template, movie);
-        this.$moviesWrapper.appendChild(Template.createMovieCard());
-      });
+        SortedMovies.forEach((movie) => {
+          const Template = new MovieCard(movie, this.WishListSubject);
+          this.$moviesWrapper.appendChild(Template.createMovieCard());
+          movieCardWithPlayer(Template, movie);
+        });
+      } else {
+        filteredMovies.forEach((movie) => {
+          const Template = new MovieCard(movie, this.WishListSubject);
+          movieCardWithPlayer(Template, movie);
+          this.$moviesWrapper.appendChild(Template.createMovieCard());
+        });
+      }
+
+      this.emitSortEvent(sorter);
+    } catch (error) {
+      console.error("Error sorting movies:", error);
+      // Handle or log the error as needed
     }
-
-    this.emitSortEvent(sorter);
   }
 
   emitSortEvent(sorter) {
@@ -59,11 +64,9 @@ export class SorterForm {
     document.dispatchEvent(sortEvent);
   }
 
-  onChangeSorter() {
-    this.$wrapper.querySelector("form").addEventListener("change", (e) => {
-      const sorter = e.target.value;
-      this.sorterMovies(sorter);
-    });
+  onChangeSorter(event) {
+    const sorter = event.target.value;
+    this.sorterMovies(sorter);
   }
 
   clearMoviesWrapper() {
@@ -83,7 +86,7 @@ export class SorterForm {
     `;
 
     this.$wrapper.innerHTML = sorterForm;
-    this.onChangeSorter();
+    this.$wrapper.addEventListener("change", this.onChangeSorter);
 
     this.$sorterFormWrapper.appendChild(this.$wrapper);
   }
