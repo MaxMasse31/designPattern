@@ -1,5 +1,3 @@
-// App.js
-
 import { MovieApi } from "./api/Api.js";
 import { MovieCard } from "./templates/MovieCard.js";
 import { MoviesFactory } from "./factories/MoviesFactory.js";
@@ -12,48 +10,57 @@ import { WishlistSubject } from "./Observer/Subject.js";
 
 class App {
   constructor() {
+    // Sélection des éléments du DOM
     this.$moviesWrapper = document.querySelector(".movies-wrapper");
     this.$modalWrapper = document.querySelector(".modal");
 
+    // Initialisation de l'API des films
     this.moviesApi = new MovieApi("/data/new-movie-data.json");
     this.externalMoviesApi = new MovieApi("/data/external-movie-data.json");
 
-    // WishLib Pub/sub
-    this.WishlistSubject = new WishlistSubject();
-    this.WhishListCounter = new WhishListCounter();
-    this.WishlistSubject.subscribe(this.WhishListCounter);
+    // Initialisation du système de liste de souhaits (WishList)
+    this.wishlistSubject = new WishlistSubject();
+    this.wishListCounter = new WhishListCounter();
+    this.wishlistSubject.subscribe(this.wishListCounter);
   }
 
   async main() {
+    // Récupération des données des films depuis l'API
     const moviesData = await this.moviesApi.get();
     const externalMoviesData = await this.externalMoviesApi.get();
 
-    const Movies = moviesData.map(
+    // Création d'objets de film à partir des données
+    const movies = moviesData.map(
       (movie) => new MoviesFactory(movie, "newApi")
     );
-    const ExternalMovies = externalMoviesData.map(
+    const externalMovies = externalMoviesData.map(
       (movie) => new MoviesFactory(movie, "externalApi")
     );
 
-    const FullMovies = Movies.concat(ExternalMovies);
+    // Fusion des films provenant des deux sources
+    const fullMovies = movies.concat(externalMovies);
 
-    const DataForm = new Form();
-    DataForm.render();
+    // Initialisation du formulaire de données (DataForm)
+    const dataForm = new Form();
+    dataForm.render();
 
-    const Filter = new FilterForm(FullMovies);
-    const Sorter = new SorterForm(FullMovies, Filter, this.WishlistSubject);
+    // Initialisation et rendu du formulaire de filtrage (FilterForm)
+    const filterForm = new FilterForm(fullMovies, this.wishlistSubject);
+    filterForm.render();
 
-    Filter.render();
-    Sorter.render();
+    // Initialisation et rendu du formulaire de tri (SorterForm)
+    const sorterForm = new SorterForm(fullMovies, filterForm, this.wishlistSubject);
+    sorterForm.render();
 
-    FullMovies.forEach((movie) => {
-      const Template = new MovieCard(movie, this.WishlistSubject);
-      this.$moviesWrapper.appendChild(Template.createMovieCard());
-      // Apply the Decorator pattern to the movie card template
-      movieCardWithPlayer(Template, movie);
+    // Affichage des films dans le wrapper des films
+    fullMovies.forEach((movie) => {
+      const movieCard = new MovieCard(movie, this.wishlistSubject);
+      this.$moviesWrapper.appendChild(movieCard.createMovieCard());
+      movieCardWithPlayer(movieCard, movie);
     });
   }
 }
 
+// Création de l'instance de l'application et exécution de la méthode principale
 const app = new App();
 app.main();

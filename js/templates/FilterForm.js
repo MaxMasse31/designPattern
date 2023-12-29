@@ -3,25 +3,34 @@ import { FilterMoviesAdapter } from "../adapters/FilterMoviesAdapter.js";
 import { movieCardWithPlayer } from "../Decorator/Decorator.js";
 
 export class FilterForm {
-  constructor(Movies, sorterForm) {
+  constructor(Movies, WishListSubject) {
     this.Movies = Movies;
-    this.sorterForm = sorterForm;
-
+    this.WishListSubject = WishListSubject;
     this.$wrapper = document.createElement("div");
     this.$filterFormWrapper = document.querySelector(".filter-form-wrapper");
     this.$moviesWrapper = document.querySelector(".movies-wrapper");
+
+    this.onChangeFilter = this.onChangeFilter.bind(this);
   }
 
   async filterMovies(actor) {
     this.clearMoviesWrapper();
 
-    const AdaptedFilterLib = new FilterMoviesAdapter(this.Movies, actor);
-    const FilteredMovies = await AdaptedFilterLib.filterByActor();
+    const adaptedFilterLib = new FilterMoviesAdapter(this.Movies, actor);
+    const filteredMovies = await adaptedFilterLib.filterByActor();
 
-    FilteredMovies.forEach((movie) => {
-      const Template = new MovieCard(movie, this.WishListSubject);
-      this.$moviesWrapper.appendChild(Template.createMovieCard());
-      movieCardWithPlayer(Template, movie);
+    filteredMovies.forEach((movie) => {
+      const template = new MovieCard(movie, this.WishListSubject);
+      const movieCardElement = template.createMovieCard();
+
+      const container = document.createElement("div");
+      container.appendChild(movieCardElement);
+
+      this.$moviesWrapper.appendChild(container);
+
+      movieCardWithPlayer(template, movie);
+
+    
     });
 
     this.emitFilterEvent(actor);
@@ -35,10 +44,7 @@ export class FilterForm {
   }
 
   onChangeFilter() {
-    this.$wrapper.querySelector("form").addEventListener("change", (e) => {
-      const actor = e.target.value;
-      this.filterMovies(actor);
-    });
+    this.filterMovies(this.getSelectedActor());
   }
 
   getSelectedActor() {
@@ -63,7 +69,7 @@ export class FilterForm {
     `;
 
     this.$wrapper.innerHTML = filterForm;
-    this.onChangeFilter();
+    this.$wrapper.querySelector("form").addEventListener("change", this.onChangeFilter);
 
     this.$filterFormWrapper.appendChild(this.$wrapper);
   }

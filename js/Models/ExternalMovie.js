@@ -1,43 +1,52 @@
 export class ExternalMovie {
     constructor(data) {
-        this._actor = "sylvester"
-        this._infos = data.infos
-        this._medias = data.medias
-        this._synopsis = data.synopsis
-        this._title_en = data.title_en
-        this._title_fr = data.title_fr
-        this._trailer = data.trailer_id
+        this._actor = "sylvester";
+        this._infos = data.infos;
+        this._medias = data.medias;
+        this._synopsis = data.synopsis;
+        this._title_en = data.title_en;
+        this._title_fr = data.title_fr;
+        this._trailer = data.trailer_id;
+        this._wished = data.wished || false;
     }
 
     get actor() {
-        return this._actor
+        return this._actor;
     }
 
     get duration() {
-        return this._infos.duration
+        return this._infos.duration;
     }
 
     get picture() {
-        return `/assets/${this._medias.picture}`
+        return `/assets/${this._medias.picture}`;
     }
 
     get thumbnail() {
-        return `/assets/thumbnails/${this._medias.thumbnail}`
+        return `/assets/thumbnails/${this._medias.thumbnail}`;
     }
 
     get released_in() {
-        return this._infos.released_in
+        return this._infos.released_in;
     }
 
     get synopsis() {
-        return this._synopsis
+        return this._synopsis;
     }
 
     get title() {
-        return this._title_fr ? this._title_fr : this._title_en
+        return this._title_fr ? this._title_fr : this._title_en;
     }
 
     get trailer() {
-        return `https://www.youtube.com/embed/${this._trailer}`
+        return `https://www.youtube.com/embed/${this._trailer}`;
+    }
+
+    get wished() {
+        return this._wished;
+    }
+
+    set wished(value) {
+        this._wished = value;
     }
 }

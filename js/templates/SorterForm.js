@@ -29,7 +29,16 @@ export class SorterForm {
         ? await FilterV2.filterByActor(actorFilter, this.Movies)
         : this.Movies;
 
-      if (!!sorter) {
+      if (sorter === "none") {
+        // If "Aucun tri" is selected, shuffle the movies randomly
+        const shuffledMovies = this.shuffleArray(filteredMovies);
+
+        shuffledMovies.forEach((movie) => {
+          const Template = new MovieCard(movie, this.WishListSubject);
+          this.$moviesWrapper.appendChild(Template.createMovieCard());
+          movieCardWithPlayer(Template, movie);
+        });
+      } else if (!!sorter) {
         const sortedData = await this.ProxyRatingSorter.sorter(
           filteredMovies,
           sorter,
@@ -57,6 +66,15 @@ export class SorterForm {
     }
   }
 
+  shuffleArray(array) {
+    // Function to shuffle an array (Fisher-Yates algorithm)
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
+
   emitSortEvent(sorter) {
     const sortEvent = new CustomEvent("sort", {
       detail: { sorter },
@@ -78,7 +96,7 @@ export class SorterForm {
       <form action="#" method="POST" class="sorter-form">
         <label for="sorter-select">Triez par date de sortie : </label>
         <select name="sorter-select" id="sorter-select">
-          <option value="">Aucun tri</option>
+          <option value="none">Aucun tri</option>
           <option value="ASC">Croissante</option>
           <option value="DESC">Décroissante</option>
         </select>

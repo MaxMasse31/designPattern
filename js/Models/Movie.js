@@ -6,6 +6,7 @@ export class Movie {
         this._released_in = data.released_in
         this._synopsis = data.synopsis
         this._title = data.title
+        this._wished = false;
     }
 
     get actor() {
@@ -36,5 +37,14 @@ export class Movie {
 
     get title() {
         return this._title.hasOwnProperty('fr') ? this._title['fr'] : this._title['en']
+    }
+
+
+    get wished() {
+        return this._wished;
+    }
+
+    set wished(value) {
+        this._wished = value;
     }
 }
