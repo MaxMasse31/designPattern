@@ -8,6 +8,7 @@ import { SorterForm } from "./templates/SorterForm.js";
 import { WhishListCounter } from "./Observer/Counter.js";
 import { WishlistSubject } from "./Observer/Subject.js";
 import { UserContext } from "./User/Context.js";
+import { SearchForm } from "./templates/SearchForm.js";
 
 class App {
   constructor() {
