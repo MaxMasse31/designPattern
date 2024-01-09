@@ -1,4 +1,4 @@
-export class Search {
+ export class Search {
     constructor(Movies) {
         this.Movies = Movies
     }

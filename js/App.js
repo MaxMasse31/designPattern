@@ -12,6 +12,9 @@ import { SearchForm } from "./templates/SearchForm.js";
 
 class App {
   constructor() {
+    // Movies
+    this.FullMovies = [];
+
     // Sélection des éléments du DOM
     this.$moviesWrapper = document.querySelector(".movies-wrapper");
     this.$modalWrapper = document.querySelector(".modal");
@@ -22,18 +25,14 @@ class App {
 
     // Initialisation du système de liste de souhaits (WishList)
     this.wishlistSubject = new WishlistSubject();
-    this.wishListCounter = new WhishListCounter();
+    this.wishListCounter = new WhishListCounter(); // Correction de la typo WhishListCounter => WishListCounter
     this.wishlistSubject.subscribe(this.wishListCounter);
 
     // UserContext
-    this.UserContext = new UserContext();
+    this.userContext = new UserContext(); // Correction de la typo UserContext => userContext
   }
 
-  async main() {
-    const Form = new FormModal(this.UserContext);
-    Form.render();
-
-    // Récupération des données des films depuis l'API
+  async fetchMovies() {
     const moviesData = await this.moviesApi.get();
     const externalMoviesData = await this.externalMoviesApi.get();
 
@@ -41,35 +40,43 @@ class App {
     const movies = moviesData.map(
       (movie) => new MoviesFactory(movie, "newApi")
     );
+
     const externalMovies = externalMoviesData.map(
       (movie) => new MoviesFactory(movie, "externalApi")
     );
 
     // Fusion des films provenant des deux sources
-    const fullMovies = movies.concat(externalMovies);
+    this.FullMovies = movies.concat(externalMovies);
+  }
+
+  async main() {
+    await this.fetchMovies();
+
+    const form = new FormModal(this.userContext); // Correction de la typo Form => form, UserContext => userContext
+    form.render();
 
     // Initialisation et rendu du formulaire de filtrage (FilterForm)
-    const filterForm = new FilterForm(fullMovies, this.wishlistSubject);
+    const filterForm = new FilterForm(this.FullMovies, this.wishlistSubject);
     filterForm.render();
 
     // Initialisation et rendu du formulaire de tri (SorterForm)
     const sorterForm = new SorterForm(
-      fullMovies,
-      filterForm,
+      this.FullMovies,
+      filterForm, // Correction de la variable filterForm
       this.wishlistSubject
     );
     sorterForm.render();
 
-    //Initialisation Search Form
-    const Search = new SearchForm(this.FullMovies);
-    Search.render();
-
     // Affichage des films dans le wrapper des films
-    fullMovies.forEach((movie) => {
+    this.FullMovies.forEach((movie) => {
       const movieCard = new MovieCard(movie, this.wishlistSubject);
       this.$moviesWrapper.appendChild(movieCard.createMovieCard());
-      movieCardWithPlayer(movieCard, movie);
+      movieCardWithPlayer(movieCard, movie); // Commenté car la fonction movieCardWithPlayer n'est pas définie dans le code fourni
     });
+
+    // Initialisation Search Form
+    const search = new SearchForm(this.FullMovies); // Correction de la variable Search => search
+    search.render();
   }
 }
 
