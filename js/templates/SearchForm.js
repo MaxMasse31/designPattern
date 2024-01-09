@@ -1,3 +1,7 @@
+import { MovieNameSearch } from "../Search/MainSearch"
+import { ActorNameSearch } from "../Search/MainSearch"
+
+
 export class SearchForm {
     constructor(Movies) {
         this.Movies = Movies
