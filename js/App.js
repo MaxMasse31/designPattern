@@ -7,7 +7,7 @@ import { movieCardWithPlayer } from "./Decorator/Decorator.js";
 import { SorterForm } from "./templates/SorterForm.js";
 import { WhishListCounter } from "./Observer/Counter.js";
 import { WishlistSubject } from "./Observer/Subject.js";
-import {UserContext} from "./User/Context.js"
+import { UserContext } from "./User/Context.js";
 
 class App {
   constructor() {
@@ -24,16 +24,13 @@ class App {
     this.wishListCounter = new WhishListCounter();
     this.wishlistSubject.subscribe(this.wishListCounter);
 
-   // UserContext
-   this.UserContext = new UserContext()
-
+    // UserContext
+    this.UserContext = new UserContext();
   }
 
   async main() {
-
-    
-    const Form = new FormModal(this.UserContext)
-    Form.render()
+    const Form = new FormModal(this.UserContext);
+    Form.render();
 
     // Récupération des données des films depuis l'API
     const moviesData = await this.moviesApi.get();
@@ -50,17 +47,21 @@ class App {
     // Fusion des films provenant des deux sources
     const fullMovies = movies.concat(externalMovies);
 
-    // // Initialisation du formulaire de données (DataForm)
-    // const dataForm = new Form();
-    // dataForm.render();
-
     // Initialisation et rendu du formulaire de filtrage (FilterForm)
     const filterForm = new FilterForm(fullMovies, this.wishlistSubject);
     filterForm.render();
 
     // Initialisation et rendu du formulaire de tri (SorterForm)
-    const sorterForm = new SorterForm(fullMovies, filterForm, this.wishlistSubject);
+    const sorterForm = new SorterForm(
+      fullMovies,
+      filterForm,
+      this.wishlistSubject
+    );
     sorterForm.render();
+
+    //Initialisation Search Form
+    const Search = new SearchForm(this.FullMovies);
+    Search.render();
 
     // Affichage des films dans le wrapper des films
     fullMovies.forEach((movie) => {
