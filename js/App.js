@@ -1,12 +1,13 @@
 import { MovieApi } from "./api/Api.js";
 import { MovieCard } from "./templates/MovieCard.js";
 import { MoviesFactory } from "./factories/MoviesFactory.js";
-import { Form } from "./templates/Modal.js";
+import { FormModal } from "./templates/Modal.js";
 import { FilterForm } from "./templates/FilterForm.js";
 import { movieCardWithPlayer } from "./Decorator/Decorator.js";
 import { SorterForm } from "./templates/SorterForm.js";
 import { WhishListCounter } from "./Observer/Counter.js";
 import { WishlistSubject } from "./Observer/Subject.js";
+import {UserContext} from "./User/Context.js"
 
 class App {
   constructor() {
@@ -22,9 +23,18 @@ class App {
     this.wishlistSubject = new WishlistSubject();
     this.wishListCounter = new WhishListCounter();
     this.wishlistSubject.subscribe(this.wishListCounter);
+
+   // UserContext
+   this.UserContext = new UserContext()
+
   }
 
   async main() {
+
+    
+    const Form = new FormModal(this.UserContext)
+    Form.render()
+
     // Récupération des données des films depuis l'API
     const moviesData = await this.moviesApi.get();
     const externalMoviesData = await this.externalMoviesApi.get();
@@ -40,9 +50,9 @@ class App {
     // Fusion des films provenant des deux sources
     const fullMovies = movies.concat(externalMovies);
 
-    // Initialisation du formulaire de données (DataForm)
-    const dataForm = new Form();
-    dataForm.render();
+    // // Initialisation du formulaire de données (DataForm)
+    // const dataForm = new Form();
+    // dataForm.render();
 
     // Initialisation et rendu du formulaire de filtrage (FilterForm)
     const filterForm = new FilterForm(fullMovies, this.wishlistSubject);

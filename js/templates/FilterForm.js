@@ -29,8 +29,6 @@ export class FilterForm {
       this.$moviesWrapper.appendChild(container);
 
       movieCardWithPlayer(template, movie);
-
-    
     });
 
     this.emitFilterEvent(actor);
@@ -69,7 +67,9 @@ export class FilterForm {
     `;
 
     this.$wrapper.innerHTML = filterForm;
-    this.$wrapper.querySelector("form").addEventListener("change", this.onChangeFilter);
+    this.$wrapper
+      .querySelector("form")
+      .addEventListener("change", this.onChangeFilter);
 
     this.$filterFormWrapper.appendChild(this.$wrapper);
   }
