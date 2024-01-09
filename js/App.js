@@ -77,6 +77,18 @@ class App {
     // Initialisation Search Form
     const search = new SearchForm(this.FullMovies); // Correction de la variable Search => search
     search.render();
+
+    // Gestion des page
+    // Ajoutez ici la logique pour gérer le changement de page
+    const handlePageChange = (pageName) => {
+      // Vous pouvez ajouter une logique ici pour déterminer quelle page afficher
+      // en fonction du nom de la page, puis effectuer le changement de contenu de manière dynamique.
+      // Par exemple, vous pouvez utiliser des conditions if/else ou un switch.
+      console.log(`Changement de page vers : ${pageName}`);
+    };
+
+    // Exemple de déclenchement du changement de page
+    handlePageChange("HomePage");
   }
 }
 
