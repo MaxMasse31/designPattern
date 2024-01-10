@@ -34,24 +34,6 @@ export class MovieCard {
 
 
 
-handleThumbnailClick() {
-  const thumbnail = this.$wrapper.querySelector(".movie-thumbnail");
-
-  thumbnail.addEventListener("click", () => {
-    // Vous pouvez ici déclencher un événement personnalisé pour indiquer
-    // le changement de page. Vous pouvez utiliser l'objet CustomEvent.
-    const pageChangeEvent = new CustomEvent("changePage", {
-      detail: {
-        page: "singlePage",  // Vous pouvez spécifier le nom de la page ici
-        movie: this._movie  // Vous pouvez également passer des données pertinentes à la page
-      }
-    });
-
-    // Dispatch de l'événement
-    document.dispatchEvent(pageChangeEvent);
-  });
-}
-
 
 
 createMovieCard() {
@@ -77,6 +59,9 @@ createMovieCard() {
 
   this.$wrapper.innerHTML = movieCard;
   this.handleWishButton();
+
+  //Déclaration de la méthode
+  // this.handleThumbnailClick();
 
   return this.$wrapper;
 }

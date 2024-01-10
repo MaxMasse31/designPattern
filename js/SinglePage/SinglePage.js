@@ -1,4 +1,4 @@
-class SinglePage {
+export class SinglePage {
     constructor() {
       this.pageState = {
         selectPage: null,

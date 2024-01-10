@@ -9,6 +9,8 @@ import { WhishListCounter } from "./Observer/Counter.js";
 import { WishlistSubject } from "./Observer/Subject.js";
 import { UserContext } from "./User/Context.js";
 import { SearchForm } from "./templates/SearchForm.js";
+import { handleThumbnailClick } from "./SinglePage/movieSingleCard.js";
+import {singleMovie} from "./templates/singleMovie.js"
 
 class App {
   constructor() {
@@ -51,44 +53,44 @@ class App {
 
   async main() {
     await this.fetchMovies();
-
-    const form = new FormModal(this.userContext); // Correction de la typo Form => form, UserContext => userContext
+    const form = new FormModal(this.userContext);
     form.render();
-
-    // Initialisation et rendu du formulaire de filtrage (FilterForm)
-    const filterForm = new FilterForm(this.FullMovies, this.wishlistSubject);
-    filterForm.render();
-
-    // Initialisation et rendu du formulaire de tri (SorterForm)
-    const sorterForm = new SorterForm(
-      this.FullMovies,
-      filterForm, // Correction de la variable filterForm
-      this.wishlistSubject
-    );
-    sorterForm.render();
 
     // Affichage des films dans le wrapper des films
     this.FullMovies.forEach((movie) => {
       const movieCard = new MovieCard(movie, this.wishlistSubject);
       this.$moviesWrapper.appendChild(movieCard.createMovieCard());
-      movieCardWithPlayer(movieCard, movie); // Commenté car la fonction movieCardWithPlayer n'est pas définie dans le code fourni
+      movieCardWithPlayer(movieCard, movie);
+      handleThumbnailClick(movieCard, movie);
     });
 
-    // Initialisation Search Form
-    const search = new SearchForm(this.FullMovies); // Correction de la variable Search => search
-    search.render();
+    const urlParams = new URLSearchParams(window.location.search);
+    const movieId = urlParams.get("id");
 
-    // Gestion des page
-    // Ajoutez ici la logique pour gérer le changement de page
-    const handlePageChange = (pageName) => {
-      // Vous pouvez ajouter une logique ici pour déterminer quelle page afficher
-      // en fonction du nom de la page, puis effectuer le changement de contenu de manière dynamique.
-      // Par exemple, vous pouvez utiliser des conditions if/else ou un switch.
-      console.log(`Changement de page vers : ${pageName}`);
-    };
+    if (movieId) {
+      // Chargez les détails du film spécifique à la page singlePage.html
+      const movieDetails = this.FullMovies.find(
+        (movie) => movie.id === movieId
+      );
+      const singlePage = new singleMovie(movieDetails);
+      singlePage.render();
+    } else {
+      // Initialisation et rendu du formulaire de filtrage (FilterForm)
+      const filterForm = new FilterForm(this.FullMovies, this.wishlistSubject);
+      filterForm.render();
 
-    // Exemple de déclenchement du changement de page
-    handlePageChange("HomePage");
+      // Initialisation et rendu du formulaire de tri (SorterForm)
+      const sorterForm = new SorterForm(
+        this.FullMovies,
+        filterForm,
+        this.wishlistSubject
+      );
+      sorterForm.render();
+
+      // Initialisation Search Form
+      const search = new SearchForm(this.FullMovies);
+      search.render();
+    }
   }
 }
 

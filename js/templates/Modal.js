@@ -1,5 +1,4 @@
 
-
 export class FormModal {
     constructor(UserContext) {
         this.$wrapper = document.createElement('div')
