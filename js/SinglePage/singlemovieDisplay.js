@@ -1,36 +1,50 @@
-import { singleMovie } from "../templates/singleMovie.js";
-import {MovieCard} from "../templates/MovieCard.js"
+
 
 export class SingleMovieDisplay {
   constructor(Movies) {
-    this.Movies = Movies;
-    this.$wrapper = document.createElement("div");
-    this.$moviesWrapper = document.querySelector('.movies-wrapper')
+    this._movie = Movies;
+    this.$moviesWrapper = document.querySelector('.movies-wrapper');
   }
+
+
 
   clearMoviesWrapper() {
-    this.$moviesWrapper.innerHTML = ""
-}
+    this.$moviesWrapper.innerHTML = "";
+   
+  }
 
+  createSingleMovie() {
+    const singleMovieContent = `
+      <div class="movie-thumbnail center">
+        <img alt="${this._movie.title}" src="${this._movie.thumbnail}" />
+      </div>
+      <h3 class="fs-16 center">${this._movie.title}</h3>
+      <p class="fs-14 center">
+        <span>${this._movie.released_in}</span>
+        -
+        <span>${this._movie.duration}</span>
+        <button id="btn" class="btn">Voir le détail</button>
+      </p>
+     
+    `;
 
-displayMovies(Movies) {
-    this.clearMoviesWrapper();
-
-    Movies.forEach((movie) => {
-      if (movie.id === Movies.id) {
-        const template = new singleMovie(movie);
-        this.$moviesWrapper.appendChild(template.createSingleMovie());
-      }
-    });
-}
-
-render() {
-    // Call the displayMovies method to render the movies
-    this.displayMovies(this.Movies);
+    this.$moviesWrapper.innerHTML = singleMovieContent;
+    return this.$moviesWrapper;
   }
 
 
 
 
+  
+  displayMovieById() {
+    this.clearMoviesWrapper();
+    this.createSingleMovie();
+  
+  }
 
+  render() {
+    // Call the displayMovieById method to render the movie
+    // Specify the movie ID you want to display
+    this.displayMovieById();
+  }
 }

@@ -10,10 +10,18 @@ import { WishlistSubject } from "./Observer/Subject.js";
 import { UserContext } from "./User/Context.js";
 import { SearchForm } from "./templates/SearchForm.js";
 import {handleThumbnailClick} from "./Decorator/clickSinglePage.js";
-// import {singleMovie} from "./templates/singleMovie.js";
+// import { SingleMovieDisplay } from "../SinglePage/singlemovieDisplay.js";
+
+
+
 
 class App {
   constructor() {
+
+//  
+
+
+
     // Movies
     this.FullMovies = [];
 
@@ -61,7 +69,7 @@ class App {
       const movieCard = new MovieCard(movie, this.wishlistSubject);
       this.$moviesWrapper.appendChild(movieCard.createMovieCard());
       movieCardWithPlayer(movieCard, movie);
-      handleThumbnailClick(movieCard, movie)
+      handleThumbnailClick(movieCard, movie);
     });
 
     // Initialisation et rendu du formulaire de filtrage (FilterForm)

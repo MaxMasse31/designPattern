@@ -1,9 +1,9 @@
-
 export class singleMovie {
-  constructor(movie) {
+  constructor(movie, targetElement) {
     this._movie = movie;
     this.$wrapper = document.createElement("div");
     this.$wrapper.classList.add("movie-card-wrapper");
+    this.targetElement = targetElement; // Ajout de la référence à l'élément du DOM
   }
 
   get movie() {
@@ -25,7 +25,7 @@ export class singleMovie {
     `;
 
     this.$wrapper.innerHTML = singleMovieContent;
-    this.$singlePage.appendChild(this.$wrapper);
+    return this.$wrapper;
   }
 
   render() {
