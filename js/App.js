@@ -9,19 +9,11 @@ import { WhishListCounter } from "./Observer/Counter.js";
 import { WishlistSubject } from "./Observer/Subject.js";
 import { UserContext } from "./User/Context.js";
 import { SearchForm } from "./templates/SearchForm.js";
-import {handleThumbnailClick} from "./Decorator/clickSinglePage.js";
-// import { SingleMovieDisplay } from "../SinglePage/singlemovieDisplay.js";
-
-
+import { handleThumbnailClick } from "./Decorator/clickSinglePage.js";
 
 
 class App {
   constructor() {
-
-//  
-
-
-
     // Movies
     this.FullMovies = [];
 

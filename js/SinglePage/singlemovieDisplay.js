@@ -1,16 +1,11 @@
-
-
 export class SingleMovieDisplay {
   constructor(Movies) {
     this._movie = Movies;
-    this.$moviesWrapper = document.querySelector('.movies-wrapper');
+    this.$moviesWrapper = document.querySelector(".movies-wrapper");
   }
-
-
 
   clearMoviesWrapper() {
     this.$moviesWrapper.innerHTML = "";
-   
   }
 
   createSingleMovie() {
@@ -32,14 +27,9 @@ export class SingleMovieDisplay {
     return this.$moviesWrapper;
   }
 
-
-
-
-  
   displayMovieById() {
     this.clearMoviesWrapper();
     this.createSingleMovie();
-  
   }
 
   render() {
