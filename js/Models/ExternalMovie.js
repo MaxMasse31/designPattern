@@ -8,6 +8,12 @@ export class ExternalMovie {
         this._title_fr = data.title_fr;
         this._trailer = data.trailer_id;
         this._wished = data.wished || false;
+        this._id=data.id;
+    }
+
+    get id(){
+
+        return this._id
     }
 
     get actor() {

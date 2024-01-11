@@ -1,3 +1,5 @@
+// import {SingleMovieDisplay} from "../SinglePage/singlemovieDisplay.js"
+
 export class MovieCard {
   constructor(movie, WishListSubject) {
     this._movie = movie;
@@ -35,10 +37,9 @@ export class MovieCard {
 
 
 
-
 createMovieCard() {
   const movieCard = `
-    <div class="movie-thumbnail center">
+    <div class="btn-single-film movie-thumbnail center">
       <img alt="${this._movie.title}" src="${this._movie.thumbnail}" />
       <div class="wish-btn ${this._movie.wished ? 'wished' : ''}">
         <svg class="heart" viewBox="0 0 241.59736 220.05746">
@@ -60,9 +61,9 @@ createMovieCard() {
   this.$wrapper.innerHTML = movieCard;
   this.handleWishButton();
 
-  //Déclaration de la méthode
-  // this.handleThumbnailClick();
+  
 
   return this.$wrapper;
 }
 }
+

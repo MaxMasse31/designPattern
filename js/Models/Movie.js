@@ -7,6 +7,13 @@ export class Movie {
         this._synopsis = data.synopsis
         this._title = data.title
         this._wished = false;
+        this._id=data.id
+       
+    }
+
+    get id(){
+
+        return this._id
     }
 
     get actor() {

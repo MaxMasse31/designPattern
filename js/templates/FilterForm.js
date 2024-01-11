@@ -55,22 +55,28 @@ export class FilterForm {
   }
 
   render() {
-    const filterForm = `
-      <form class="filter-form" action="#" method="POST">
-        <label for="filter-select">Choisissez votre acteur préféré : </label>
-        <select name="filter-select" id="filter-select">
-          <option value="">Aucun filtre</option>
-          <option value="arnold">Arnold Schwarzenegger</option>
-          <option value="sylvester">Sylvester Stallone</option>
-        </select>
-      </form>
-    `;
-
-    this.$wrapper.innerHTML = filterForm;
-    this.$wrapper
-      .querySelector("form")
-      .addEventListener("change", this.onChangeFilter);
-
-    this.$filterFormWrapper.appendChild(this.$wrapper);
+    // Vérifiez si vous êtes sur la page singlePage avant d'attacher le formulaire
+    const isSinglePage = window.location.pathname.includes('singlePage.html');
+    
+    if (!isSinglePage) {
+      const filterForm = `
+        <form class="filter-form" action="#" method="POST">
+          <label for="filter-select">Choisissez votre acteur préféré : </label>
+          <select name="filter-select" id="filter-select">
+            <option value="">Aucun filtre</option>
+            <option value="arnold">Arnold Schwarzenegger</option>
+            <option value="sylvester">Sylvester Stallone</option>
+          </select>
+        </form>
+      `;
+  
+      this.$wrapper.innerHTML = filterForm;
+      this.$wrapper
+        .querySelector("form")
+        .addEventListener("change", this.onChangeFilter);
+  
+      this.$filterFormWrapper.appendChild(this.$wrapper);
+    }
   }
+       
 }

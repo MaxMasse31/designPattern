@@ -9,8 +9,7 @@ import { WhishListCounter } from "./Observer/Counter.js";
 import { WishlistSubject } from "./Observer/Subject.js";
 import { UserContext } from "./User/Context.js";
 import { SearchForm } from "./templates/SearchForm.js";
-import {handleThumbnailClick} from "./Decorator/clickSinglePage.js";
-// import {singleMovie} from "./templates/singleMovie.js";
+import { SingleMovieDisplay } from "./templates/singleMovie.js";
 
 class App {
   constructor() {
@@ -19,6 +18,7 @@ class App {
 
     // Sélection des éléments du DOM
     this.$moviesWrapper = document.querySelector(".movies-wrapper");
+    this.$singleMovie = document.querySelector(".single-movie-details");
 
     this.$modalWrapper = document.querySelector(".modal");
 
@@ -61,7 +61,6 @@ class App {
       const movieCard = new MovieCard(movie, this.wishlistSubject);
       this.$moviesWrapper.appendChild(movieCard.createMovieCard());
       movieCardWithPlayer(movieCard, movie);
-      handleThumbnailClick(movieCard, movie)
     });
 
     // Initialisation et rendu du formulaire de filtrage (FilterForm)
@@ -81,9 +80,27 @@ class App {
     search.render();
   }
 
+  async renderSinglePage() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const movieId = urlParams.get("id");
+
+    if (movieId) {
+      // Chargez les détails du film spécifique à la page singlePage.html
+      const singleMovieDisplay = new SingleMovieDisplay(
+        this.FullMovies,
+        this.$moviesWrapper
+      );
+      singleMovieDisplay.displaySingleMovie(movieId);
+
+      // Vous devez définir la classe singleMovie et sa méthode render pour afficher les détails du film sur la page
+      const singlePage = new singleMovie(movieDetails);
+      singlePage.render();
+    }
+  }
+
   async main() {
     await this.renderMainPage();
-    // await this.renderSinglePage();
+    await this.renderSinglePage();
   }
 }
 
