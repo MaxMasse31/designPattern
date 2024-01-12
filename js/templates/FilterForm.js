@@ -1,6 +1,7 @@
-import { MovieCard } from "../templates/MovieCard.js";
+import { MovieCard } from "./MovieCard.js";
 import { FilterMoviesAdapter } from "../adapters/FilterMoviesAdapter.js";
 import { movieCardWithPlayer } from "../Decorator/Decorator.js";
+import { handleThumbnailClick } from "../Decorator/clickSinglePage.js";
 
 export class FilterForm {
   constructor(Movies, WishListSubject) {
@@ -29,6 +30,9 @@ export class FilterForm {
       this.$moviesWrapper.appendChild(container);
 
       movieCardWithPlayer(template, movie);
+      handleThumbnailClick(template, movie);
+
+
     });
 
     this.emitFilterEvent(actor);

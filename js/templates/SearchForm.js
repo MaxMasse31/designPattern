@@ -1,6 +1,6 @@
 import { MovieNameSearch } from "../Search/MainSearch.js"
 import { ActorNameSearch } from "../Search/MainSearch.js"
-import {MovieCard} from "../templates/MovieCard.js"
+import {MovieCard} from "./MovieCard.js"
 
 
 export class SearchForm {

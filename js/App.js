@@ -10,9 +10,9 @@ import { WishlistSubject } from "./Observer/Subject.js";
 import { UserContext } from "./User/Context.js";
 import { SearchForm } from "./templates/SearchForm.js";
 import { handleThumbnailClick } from "./Decorator/clickSinglePage.js";
+import 'bootstrap';
 
-
-class App {
+export class App {
   constructor() {
     // Movies
     this.FullMovies = [];
@@ -52,17 +52,42 @@ class App {
     this.FullMovies = movies.concat(externalMovies);
   }
 
-  async renderMainPage() {
-    await this.fetchMovies();
-    const form = new FormModal(this.userContext);
-    form.render();
 
+  async movieRender(){
+    await this.fetchMovies();
     this.FullMovies.forEach((movie) => {
       const movieCard = new MovieCard(movie, this.wishlistSubject);
-      this.$moviesWrapper.appendChild(movieCard.createMovieCard());
+      const existingMovieCard = this.$moviesWrapper.querySelector(`[data-movie-id="${movie.id}"]`);
+      if (!existingMovieCard) {
+        this.$moviesWrapper.appendChild(movieCard.createMovieCard());
+      }
+
+      // this.$moviesWrapper.appendChild(movieCard.createMovieCard());
       movieCardWithPlayer(movieCard, movie);
       handleThumbnailClick(movieCard, movie);
     });
+
+  }
+
+  async renderMainPage() {
+
+     await this.fetchMovies();
+    this.FullMovies.forEach((movie) => {
+      const movieCard = new MovieCard(movie, this.wishlistSubject);
+      const existingMovieCard = this.$moviesWrapper.querySelector(`[data-movie-id="${movie.id}"]`);
+      if (!existingMovieCard) {
+        this.$moviesWrapper.appendChild(movieCard.createMovieCard());
+      }
+
+      // this.$moviesWrapper.appendChild(movieCard.createMovieCard());
+      movieCardWithPlayer(movieCard, movie);
+      handleThumbnailClick(movieCard, movie);
+    });
+    
+    const form = new FormModal(this.userContext);
+    form.render();
+
+ 
 
     // Initialisation et rendu du formulaire de filtrage (FilterForm)
     const filterForm = new FilterForm(this.FullMovies, this.wishlistSubject);
@@ -83,7 +108,7 @@ class App {
 
   async main() {
     await this.renderMainPage();
-    // await this.renderSinglePage();
+    await this.movieRender();
   }
 }
 

@@ -39,7 +39,10 @@ body {
   margin-left: auto;
   margin-right: auto;
   display: grid;
-  grid-template-columns: repeat(8, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(12.5%, 1fr)); 
+  /* grid-template-columns: repeat(auto-fit, minmax(12.5%, 1fr)); */
+  justify-content: center; 
+
 }
 
 /* Movie Card */
@@ -225,3 +228,12 @@ body {
 .search-input {
   margin-right: 24px;
 }
+
+/* .singleMovie{
+
+  display:flex; 
+  justify-content: center;
+  align-items: center;
+  background-color:yellow;
+  width:100%;
+} */

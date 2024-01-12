@@ -1,9 +1,10 @@
 // SorterForm.js
 
 import { ProxyRatingSorter } from "../proxy/Proxy.js";
-import { MovieCard } from "../templates/MovieCard.js";
+import { MovieCard } from "./MovieCard.js";
 import { FilterV2 } from "../lib/filter-v2/index.js";
 import { movieCardWithPlayer } from "../Decorator/Decorator.js";
+import { handleThumbnailClick } from "../Decorator/clickSinglePage.js";
 
 export class SorterForm {
   constructor(Movies, filterForm, WishListSubject) {
@@ -37,6 +38,7 @@ export class SorterForm {
           const Template = new MovieCard(movie, this.WishListSubject);
           this.$moviesWrapper.appendChild(Template.createMovieCard());
           movieCardWithPlayer(Template, movie);
+          handleThumbnailClick(Template, movie);
         });
       } else if (!!sorter) {
         const sortedData = await this.ProxyRatingSorter.sorter(
@@ -50,12 +52,14 @@ export class SorterForm {
           const Template = new MovieCard(movie, this.WishListSubject);
           this.$moviesWrapper.appendChild(Template.createMovieCard());
           movieCardWithPlayer(Template, movie);
+          handleThumbnailClick(Template, movie);
         });
       } else {
         filteredMovies.forEach((movie) => {
           const Template = new MovieCard(movie, this.WishListSubject);
           movieCardWithPlayer(Template, movie);
           this.$moviesWrapper.appendChild(Template.createMovieCard());
+          handleThumbnailClick(Template, movie);
         });
       }
 
