@@ -51,9 +51,11 @@ export class App {
     // Fusion des films provenant des deux sources
     this.FullMovies = movies.concat(externalMovies);
 
-    window.addEventListener("beforeunload", () => {
+       window.addEventListener("beforeunload", () => {
       localStorage.clear();
     });
+
+
   }
 
 
@@ -117,3 +119,4 @@ export class App {
 // Création de l'instance de l'application et exécution de la méthode principale
 const app = new App();
 app.main();
+
