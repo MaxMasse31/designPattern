@@ -50,6 +50,10 @@ export class App {
 
     // Fusion des films provenant des deux sources
     this.FullMovies = movies.concat(externalMovies);
+
+    window.addEventListener("beforeunload", () => {
+      localStorage.clear();
+    });
   }
 
 
@@ -74,10 +78,8 @@ export class App {
      await this.fetchMovies();
     this.FullMovies.forEach((movie) => {
       const movieCard = new MovieCard(movie, this.wishlistSubject);
-      const existingMovieCard = this.$moviesWrapper.querySelector(`[data-movie-id="${movie.id}"]`);
-      if (!existingMovieCard) {
-        this.$moviesWrapper.appendChild(movieCard.createMovieCard());
-      }
+    
+      this.$moviesWrapper.appendChild(movieCard.createMovieCard());
 
       // this.$moviesWrapper.appendChild(movieCard.createMovieCard());
       movieCardWithPlayer(movieCard, movie);

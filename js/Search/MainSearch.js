@@ -20,6 +20,19 @@ export class MovieNameSearch extends Search {
   }
 }
 
+// continuer ici prochaine fois 
+export class NoFilterSearch extends Search {
+  constructor(Movies) {
+    super(Movies);
+  }
+
+  filterMovies(query) {
+    // No filtering, just return the original list of movies
+    return this.Movies;
+  }
+}
+
+
 export class ActorNameSearch extends Search {
   constructor(Movies) {
     super(Movies);

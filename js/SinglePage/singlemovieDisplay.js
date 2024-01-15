@@ -1,16 +1,21 @@
 // import 'bootstrap';
 import {MovieCard} from "../templates/MovieCard.js"
+import { NoFilterSearch } from "../Search/MainSearch.js"
 import {App} from "../App.js";
 
 
 
 
 export class SingleMovieDisplay {
-  constructor(Movies) {
+  constructor(Movies, WishListSubject) {
     this._movie = Movies;
     this.$singleMovie = document.createElement("div"); // Ajout de "this."
     this.$singleMovie.classList.add("singleMovie"); // Ajout de "this."
     this.$moviesWrapper = document.querySelector(".movies-wrapper");
+
+    
+
+    this.WishListSubject = WishListSubject; // Pass the WishListSubject directly to SorterForm
   }
   clearMoviesWrapper() {
     this.$moviesWrapper.innerHTML = "";

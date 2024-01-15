@@ -1,11 +1,21 @@
-// import {SingleMovieDisplay} from "../SinglePage/singlemovieDisplay.js"
-
 export class MovieCard {
   constructor(movie, WishListSubject) {
     this._movie = movie;
     this.$wrapper = document.createElement("div");
     this.$wrapper.classList.add("movie-card-wrapper");
     this.WishListSubject = WishListSubject;
+
+    // Check if it's the first load or a reload
+    const isFirstLoad = localStorage.getItem("isFirstLoad") !== "false";
+    localStorage.setItem("isFirstLoad", "false"); // Set to false after the first load
+
+    if (isFirstLoad) {
+      // Reset wished state on first load
+      localStorage.removeItem(`movie_${this._movie.id}_wished`);
+    }
+
+    // Initialize wished state based on localStorage
+    this._movie.wished = localStorage.getItem(`movie_${this._movie.id}_wished`) === 'true';
   }
 
   get movie() {
@@ -31,6 +41,9 @@ export class MovieCard {
         this.classList.add("wished");
         that.WishListSubject.fire("INC");
       }
+
+      // Update localStorage to remember the wish state
+      localStorage.setItem(`movie_${that._movie.id}_wished`, that._movie.wished.toString());
     });
   }
 
@@ -38,8 +51,8 @@ export class MovieCard {
     const movieCard = `
     <div class="movie-thumbnail center">
       <img class="btn-single-film " alt="${this._movie.title}" src="${
-      this._movie.thumbnail
-    }" />
+        this._movie.thumbnail
+      }" />
       <div class="wish-btn ${this._movie.wished ? "wished" : ""}">
         <svg class="heart" viewBox="0 0 241.59736 220.05746">
           <g transform="translate(-175.32265,-1696.4765)">
